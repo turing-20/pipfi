@@ -15,7 +15,7 @@ exports.deactivate = exports.activate = void 0;
 const vscode = require("vscode");
 const axios_1 = require("axios");
 // import * as FormData from 'form-data';
-const FormData = require('form-data');
+const FormData = require("form-data");
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 function activate(context) {
@@ -25,8 +25,9 @@ function activate(context) {
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with registerCommand
     // The commandId parameter must match the command field in package.json
-    let disposable = vscode.commands.registerCommand('pipfi.main', () => __awaiter(this, void 0, void 0, function* () {
+    let disposable = vscode.commands.registerCommand("pipfi.share", () => __awaiter(this, void 0, void 0, function* () {
         // The code you place here will be executed every time your command is executed
+        console.log("jashan share");
         // Display a message box to the user
         const editor = vscode.window.activeTextEditor;
         // vscode.window.showInformationMessage("res1");
@@ -35,18 +36,23 @@ function activate(context) {
             // Get the document text
             const documentText = document.getText();
             let bodyFormData = new FormData();
-            bodyFormData.append('paste', documentText);
+            bodyFormData.append("paste", documentText);
             const headers = bodyFormData.getHeaders();
-            axios_1.default.post("https://p.ip.fi/", bodyFormData, { headers }).then((res) => {
-                console.log(res.data);
+            axios_1.default
+                .post("https://p.ip.fi/", bodyFormData, { headers })
+                .then((res) => {
+                console.log(res.data, "share");
                 vscode.env.clipboard.writeText(res.data).then(() => {
-                    vscode.window.showInformationMessage(("Link copied if needed:\n" + res.data), 'Open URL').then((selection) => {
-                        if (selection == 'Open URL') {
+                    vscode.window
+                        .showInformationMessage("Link copied if needed:\n" + res.data, "Open URL")
+                        .then((selection) => {
+                        if (selection == "Open URL") {
                             vscode.env.openExternal(vscode.Uri.parse(res.data));
                         }
                     });
                 });
-            }).catch((err) => {
+            })
+                .catch((err) => {
                 console.log(err);
                 vscode.window.showInformationMessage("error");
             });
@@ -54,7 +60,37 @@ function activate(context) {
             // DO SOMETHING WITH `documentText`
         }
     }));
+    let disposable2 = vscode.commands.registerCommand("pipfi.selectShare", () => __awaiter(this, void 0, void 0, function* () {
+        const editor = vscode.window.activeTextEditor;
+        if (editor) {
+            let document = editor.document;
+            const selection = editor.selection;
+            const documentText = document.getText(selection);
+            let bodyFormData = new FormData();
+            bodyFormData.append("paste", documentText);
+            const headers = bodyFormData.getHeaders();
+            axios_1.default
+                .post("https://p.ip.fi/", bodyFormData, { headers })
+                .then((res) => {
+                console.log(res.data, "selectShare");
+                vscode.env.clipboard.writeText(res.data).then(() => {
+                    vscode.window
+                        .showInformationMessage("Link copied if needed:\n" + res.data, "Open URL")
+                        .then((selection) => {
+                        if (selection == "Open URL") {
+                            vscode.env.openExternal(vscode.Uri.parse(res.data));
+                        }
+                    });
+                });
+            })
+                .catch((err) => {
+                console.log(err);
+                vscode.window.showInformationMessage("error");
+            });
+        }
+    }));
     context.subscriptions.push(disposable);
+    context.subscriptions.push(disposable2);
 }
 exports.activate = activate;
 // this method is called when your extension is deactivated

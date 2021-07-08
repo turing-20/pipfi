@@ -3,7 +3,7 @@
   "displayName": "pipfi",
   "publisher": "turing-20",
   "description": "just send code to pipfi",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "engines": {
     "vscode": "^1.54.0"
   },
@@ -11,20 +11,29 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:pipfi.main"
+    "onCommand:pipfi.share",
+    "onCommand:pipfi.selectShare"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "pipfi.main",
-        "title": "send to p.ip.fi"
+        "command": "pipfi.share",
+        "title": "Send Current File to p.ip.fi"
+      },
+      {
+        "command": "pipfi.selectShare",
+        "title": "Send Selected Code to p.ip.fi"
       }
     ],
     "menus": {
       "editor/context": [
         {
-          "command": "pipfi.main",
+          "command": "pipfi.share",
+          "group": "9_cutcopypaste"
+        },
+        {
+          "command": "pipfi.selectShare",
           "group": "9_cutcopypaste"
         }
       ]
