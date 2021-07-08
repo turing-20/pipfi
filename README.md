@@ -1,9 +1,17 @@
-# pipfi README
+# README
 
-This extension is used to send current file to pipfi.
+This extension is used to send code to pipfi.
 
-Just right click on the File and select send to p.ip.fi .
+## How to Use:
+
+1. Right click on the File and select "Send Current File to p.ip.fi " .
+
+2. Right click on the File and select "Send Selected Code to p.ip.fi ".
+
 
 The link is copied to your clipboard.
 
 If you need to open the link just click on message opened.
+
+
+<b> Credits: Jashan and Mayank.

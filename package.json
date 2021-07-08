@@ -2,7 +2,7 @@
   "name": "pipfi",
   "displayName": "pipfi",
   "publisher": "turing-20",
-  "description": "just send code to pipfi",
+  "description": "Share your Code using p.ip.fi with a single click!!",
   "version": "0.0.4",
   "engines": {
     "vscode": "^1.54.0"
